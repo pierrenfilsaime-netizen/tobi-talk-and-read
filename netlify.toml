@@ -1,7 +1,12 @@
 [build]
   publish = "."
+  # Credit saver: production deploys (main) cost 15 credits each, branch deploys are free.
+  # On main, only build when the commit message contains [deploy]. Every other branch always builds.
+  # Exit 0 = skip the build, exit 1 = build.
+  ignore = "if [ \"$BRANCH\" != \"main\" ]; then exit 1; fi; git log -1 --pretty=%B | grep -qF '[deploy]' && exit 1 || exit 0"
 
 [[headers]]
   for = "/*"
   [headers.values]
     Permissions-Policy = "microphone=(self)"
+    Cache-Control = "public, max-age=3600"
