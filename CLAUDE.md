@@ -1,4 +1,4 @@
-# Tobi Talk & Read
+# Neek AI (formerly Tobi Talk & Read)
 
 Live site: https://tobi-talk-and-read.netlify.app (Netlify project `tobi-talk-and-read`).
 

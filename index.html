@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Tobi Talk &amp; Read</title>
+<title>Neek AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Andika:wght@400;700&display=swap">
 <style>
-/* Layout: same classroom table as Teacher Tobi. Tobi talks at the top, one big reading board, a giant mic button a child can't miss. */
+/* Layout: Neek AI, a classroom table. Tobi talks at the top, one big reading board, a giant mic button a child can't miss. */
 :root{
   --paper:#FFFBF2; --ink:#2B2A4C; --soft:#6E6A8E;
   --red:#E8553D; --sun:#F6B728; --grass:#3FA34D; --ocean:#2C7BE5; --grape:#8A4FD8; --pink:#E85D9C;
@@ -50,11 +50,11 @@ button:focus-visible{outline:4px solid var(--ocean);outline-offset:3px}
 .warn{background:#FCE3DE;border:2px solid var(--red);border-radius:14px;padding:10px 14px;margin-bottom:12px}
 
 /* Home tiles */
-.home{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.home{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px}
 .htile{border-radius:24px;padding:20px 12px;color:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.4rem;text-align:center}
 .htile .ic{font-size:3rem;line-height:1}
 .htile small{font-family:var(--read);font-weight:400;font-size:.95rem;opacity:.95}
-@media (max-width:640px){.home{grid-template-columns:1fr}}
+@media (max-width:640px){.home{grid-template-columns:repeat(2,1fr)}}
 
 /* Story list */
 .stories{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
@@ -94,7 +94,30 @@ button:focus-visible{outline:4px solid var(--ocean);outline-offset:3px}
 .choice .ic{font-size:4rem;line-height:1.1}
 .choice .lb{font-family:var(--read);font-weight:700;font-size:2rem}
 .choice.picked{background:var(--read-ok);border-color:var(--grass)}
-.question{font-family:var(--display);font-weight:800;font-size:1.7rem;text-align:center;margin:4px 0}
+.question{font-family:var(--display);font-weight:800;font-size:1.7rem;text-align:center;margin:4px 0;text-wrap:balance}
+.choice.right{background:var(--read-ok);border-color:var(--grass)}
+.choice.wrong{background:#FCE3DE;border-color:var(--red);animation:shake .3s}
+.choice:disabled{cursor:default}
+.choice .num{font-family:var(--display);font-weight:800;font-size:1.1rem;background:var(--ink);color:#fff;border-radius:999px;width:34px;height:34px;display:grid;place-items:center;margin-bottom:4px}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* Lessons */
+.lhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.tag{color:#fff;font-family:var(--display);font-weight:800;border-radius:999px;padding:3px 14px}
+.step{font-family:var(--display);font-weight:700;color:var(--soft)}
+.ghead{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:14px 0 8px}
+.teachtext{font-family:var(--read);font-weight:700;font-size:clamp(1.5rem,4.5vw,2.2rem);line-height:1.3;text-align:center;max-width:30ch;margin:6px auto 4px;text-wrap:balance}
+.say-lbl{text-align:center;font-family:var(--display);font-weight:800;color:var(--grape);font-size:1.3rem;margin:10px 0 0}
+.showtext{font-family:var(--read);font-weight:700;font-size:clamp(1.6rem,5vw,2.6rem);text-align:center;margin:6px auto;max-width:28ch;line-height:1.3;white-space:pre-wrap}
+.objs{letter-spacing:.06em;word-break:break-all}
+.pageart .op{font-family:var(--display);margin:0 .2em}
+.pageart s{opacity:.35}
+.clock{width:min(190px,50vw);height:auto}
+.blocks{display:flex;justify-content:center;align-items:flex-end;gap:6px;margin:8px 0 10px;flex-wrap:wrap}
+.blocks .ten{width:18px;height:150px;border-radius:4px;background:repeating-linear-gradient(var(--ocean) 0 13px,#FFFFFF 13px 15px);border:2px solid var(--ink)}
+.blocks .ones{display:flex;flex-direction:column-reverse;gap:2px;margin-left:10px}
+.blocks .one{width:16px;height:13px;background:var(--sun);border:2px solid var(--ink);border-radius:3px}
+.said{font-family:var(--read);font-size:1.4rem;min-height:1.5em;color:var(--ink);max-width:40ch;margin:6px auto}
 
 /* Talk time */
 .talkcard{text-align:center}
@@ -121,7 +144,7 @@ dialog h3{font-family:var(--display);margin:0 0 10px;font-size:1.5rem}
 <body>
 <div class="wrap">
   <div class="topbar">
-    <div class="brand">Tobi <span>Talk &amp; Read</span></div>
+    <div class="brand">Neek <span>AI</span></div>
     <div class="tools">
       <button class="pill" id="homeBtn">🏠 Home</button>
       <button class="pill" id="grownBtn">⚙️ Grown-ups</button>
@@ -142,7 +165,7 @@ dialog h3{font-family:var(--display);margin:0 0 10px;font-size:1.5rem}
       <rect class="ear" x="4" y="54" width="12" height="22" rx="6" fill="#2C7BE5" stroke="#2B2A4C" stroke-width="3"/>
       <rect class="ear" x="104" y="54" width="12" height="22" rx="6" fill="#2C7BE5" stroke="#2B2A4C" stroke-width="3"/>
     </svg>
-    <div class="bubble" id="bubble" aria-live="polite">Hi <b>Neekenson</b>! Let's read and talk together.</div>
+    <div class="bubble" id="bubble" aria-live="polite">Hi <b>Neekenson</b>! Welcome to Neek AI.</div>
   </div>
 
   <section class="board" id="board"></section>
@@ -238,7 +261,7 @@ function newRec(){
     lastResultAt=Date.now();
     for(let i=e.resultIndex;i<e.results.length;i++){
       const r=e.results[i];
-      const alts=Array.from(r).map(a=>words(a.transcript));
+      const alts=Array.from(r).map(a=>collapse(words(a.transcript)));
       if(deaf || tainted.has(i)){ tainted.add(i); seen[i]=alts[0].length; continue; }
       if(handler) handler({idx:i, alts, isFinal:r.isFinal});
     }
@@ -285,6 +308,7 @@ function lev(a,b){ const m=a.length,n=b.length; if(!m) return n; if(!n) return m
 function norm(w){ return words(w).join(""); }
 function match(heard, target){
   const h=norm(heard), t=norm(target); if(!h||!t) return false;
+  if(/^\d+$/.test(h)||/^\d+$/.test(t)) return h===t;
   if(h===t || (sameMap[h]&&sameMap[h]===sameMap[t])) return true;
   if(S.match==="exact") return false;
   if(t.length>=3 && lev(h,t)<=1) return true;
@@ -307,7 +331,7 @@ function tick(){ cx.clearRect(0,0,cv.width,cv.height); bits.forEach(b=>{b.x+=b.v
 /* ================= stories (branching) ================= */
 /* Each node: pages to read, then either a choice (2 options, each leading to another node) or the end. */
 const STORIES = [
- { id:"max", title:"Max the Pup", icon:"🐶", level:"Starter", start:"a", nodes:{
+ { id:"max", title:"Max the Pup", icon:"🐶", g:"K", start:"a", nodes:{
    a:{pages:[["🐶","I see Max."],["🐶","Max is a pup."],["🐶💨","Max can run."]], ask:"Where does Max go?", options:[{w:"park",ic:"🌳",to:"park"},{w:"pond",ic:"🦆",to:"pond"}]},
    park:{pages:[["🌳⚽","Max sees a ball."],["🐶⚽","Max can get the ball."],["🐶😊","Max is happy."]], ask:"Who plays with Max?", options:[{w:"cat",ic:"🐱",to:"cat"},{w:"kid",ic:"🧒",to:"kid"}]},
    cat:{pages:[["🐱💨","The cat can run too."],["🐶🐱","Max and the cat play."],["🎉","The end."]]},
@@ -316,7 +340,7 @@ const STORIES = [
    swim:{pages:[["💦","Max jumps in."],["🐶💦","Splash! Max is wet."],["🎉","The end."]]},
    nap:{pages:[["☀️","Max lies in the sun."],["😴","Max can nap."],["🌙","Good night, Max."]]}
  }},
- { id:"bus", title:"The Big Red Bus", icon:"🚌", level:"Starter", start:"a", nodes:{
+ { id:"bus", title:"The Big Red Bus", icon:"🚌", g:"K", start:"a", nodes:{
    a:{pages:[["🚌","Look at the bus."],["🚌","The bus is big and red."],["🪜","We go up the steps."]], ask:"Where does the bus go?", options:[{w:"zoo",ic:"🦁",to:"zoo"},{w:"school",ic:"🏫",to:"school"}]},
    zoo:{pages:[["🦁","We see a lion."],["🦁","The lion is big."],["🦁","Roar says the lion."]], ask:"What do we see next?", options:[{w:"monkey",ic:"🐒",to:"monkey"},{w:"snake",ic:"🐍",to:"snake"}]},
    monkey:{pages:[["🐒","The monkey can jump."],["🐒🍌","It eats a banana."],["😄","We like the zoo."]]},
@@ -325,7 +349,7 @@ const STORIES = [
    lunch:{pages:[["🍕","We eat pizza."],["😋","Yum, yum, yum."],["🏫","School is fun."]]},
    paint:{pages:[["🎨☀️","I paint a sun."],["☀️","My sun is yellow."],["🏫","School is fun."]]}
  }},
- { id:"rocket", title:"Little Rocket", icon:"🚀", level:"Getting stronger", start:"a", nodes:{
+ { id:"rocket", title:"Little Rocket", icon:"🚀", g:"K", start:"a", nodes:{
    a:{pages:[["🚀","Here is a little rocket."],["🚀☁️","It can go up to the sky."],["3️⃣2️⃣1️⃣","Three, two, one, go!"]], ask:"Where does the rocket go?", options:[{w:"moon",ic:"🌙",to:"moon"},{w:"star",ic:"⭐",to:"star"}]},
    moon:{pages:[["🌙","The rocket lands on the moon."],["🌑","The moon is gray and bumpy."],["🧑‍🚀","I can hop on the moon."]], ask:"What do I do next?", options:[{w:"rock",ic:"🪨",to:"rock"},{w:"home",ic:"🏠",to:"home"}]},
    rock:{pages:[["🪨","I find a moon rock."],["🎒","I will take it home."],["🎉","The end."]]},
@@ -334,12 +358,31 @@ const STORIES = [
    sing:{pages:[["🎵","We sing a star song."],["✨","Twinkle, twinkle, little star."],["🎉","The end."]]},
    wish:{pages:[["✨","I make a wish."],["🐶","I wish for a puppy."],["🎉","My wish comes true!"]]}
  }},
- { id:"day", title:"My Big Day", icon:"🎒", level:"Getting stronger", start:"a", nodes:{
+ { id:"day", title:"My Big Day", icon:"🎒", g:"K", start:"a", nodes:{
    a:{pages:[["😊","My name is Neekenson."],["🎒","I go to school."],["💪","I am a big kid."]], ask:"What do I do first?", options:[{w:"read",ic:"📖",to:"read"},{w:"blocks",ic:"🧱",to:"blocks"}]},
    read:{pages:[["📖","I read a book."],["🐸","The book is about a frog."],["❤️","I like to read."]], ask:"What happens after school?", options:[{w:"play",ic:"🛝",to:"play"},{w:"eat",ic:"🍎",to:"eat"}]},
    blocks:{pages:[["🧱","I build a tall tower."],["🗼","It is so tall!"],["💥","Oops, it fell down."]], ask:"What happens after school?", options:[{w:"play",ic:"🛝",to:"play"},{w:"eat",ic:"🍎",to:"eat"}]},
    play:{pages:[["🛝","I go down the slide."],["😄","I go fast!"],["🌙","What a big day."]]},
    eat:{pages:[["🍎","I eat a red apple."],["😋","It is so good."],["🌙","What a big day."]]}
+ }},
+ { id:"kite", title:"The Lost Kite", icon:"🪁", g:"1", start:"a", nodes:{
+   a:{pages:[["🪁","Jen had a red kite."],["💨","The wind was very strong."],["🌳","The kite got stuck in a tall tree."]], ask:"Who can help Jen?", options:[{w:"dad",ic:"👨",to:"dad"},{w:"dog",ic:"🐶",to:"dog"}]},
+   dad:{pages:[["🪜","Dad got a big ladder."],["⬆️","He went up, up, up."],["🪁","He got the kite down!"]], ask:"What should Jen do now?", options:[{w:"fly",ic:"🪁",to:"fly"},{w:"hug",ic:"🤗",to:"hug"}]},
+   dog:{pages:[["🐶","Her dog barked at the tree."],["🐿️","A squirrel ran out of the tree."],["🪁","The kite fell down!"]], ask:"What should Jen do now?", options:[{w:"fly",ic:"🪁",to:"fly"},{w:"hug",ic:"🤗",to:"hug"}]},
+   fly:{pages:[["🏞️","Jen ran to the open field."],["🪁","Her kite flew high in the sky."],["😄","This time, it did not get stuck!"]]},
+   hug:{pages:[["🤗","Jen gave a big hug and said thank you."],["❤️","Helping each other is the best."]]}
+ }},
+ { id:"fair", title:"The Science Fair", icon:"🔬", g:"2", start:"a", nodes:{
+   a:{pages:[["🔬","Maya wanted to win the science fair."],["🤔","First, she had to choose a project."],["💡","She thought about volcanoes and plants."]], ask:"What should Maya make?", options:[{w:"volcano",ic:"🌋",to:"volcano"},{w:"plant",ic:"🌱",to:"plant"}]},
+   volcano:{pages:[["🌋","Maya built a volcano out of clay."],["🧪","She mixed baking soda and vinegar inside."],["💥","Bubbly foam poured out of the top!"],["👏","Everyone clapped and cheered."]], ask:"What did the judges give her?", options:[{w:"medal",ic:"🥇",to:"medal"},{w:"ribbon",ic:"🎀",to:"ribbon"}]},
+   plant:{pages:[["🌱","Maya planted two seeds in two cups."],["☀️","One cup sat in a sunny window."],["🌑","The other cup sat in a dark closet."],["🌿","After a week, only the sunny plant grew tall."]], ask:"What did the judges give her?", options:[{w:"medal",ic:"🥇",to:"medal"},{w:"ribbon",ic:"🎀",to:"ribbon"}]},
+   medal:{pages:[["🥇","The judges gave Maya a shiny gold medal."],["🏆","She was proud of her hard work."]]},
+   ribbon:{pages:[["🎀","Maya won a bright blue ribbon."],["😊","She could not stop smiling all day."]]}
+ }},
+ { id:"space", title:"A Trip to Space", icon:"🪐", g:"2", start:"a", nodes:{
+   a:{pages:[["🧑‍🚀","Leo put on his space suit and helmet."],["🚀","The rocket shook and roared as it lifted off."],["🌍","Out the window, Earth looked like a blue marble."]], ask:"Where should Leo fly first?", options:[{w:"moon",ic:"🌙",to:"moon"},{w:"Saturn",ic:"🪐",to:"saturn"}]},
+   moon:{pages:[["🌙","Leo landed on the dusty, gray moon."],["👣","His boots made deep footprints in the dust."],["🪶","He jumped so high because the moon has less gravity."]]},
+   saturn:{pages:[["🪐","Saturn is a giant planet with beautiful rings."],["🧊","The rings are made of ice and rock."],["📸","Leo took a picture to show his class."]]}
  }}
 ];
 
@@ -349,22 +392,28 @@ function leave(keepMic){ if(!keepMic) stopListening(); clearTimers(); clearTimer
 
 function home(){
   leave();
-  board.innerHTML = `<h2>What do you want to do?</h2><p class="hint">Tap a big button.</p>
+  board.innerHTML = `<h2>What do you want to do?</h2><p class="hint">Pick your grade, then tap a big button.</p>
     ${micSupported()?"":`<div class="warn"><b>This browser can't hear words.</b> Use Chrome, Edge, or Safari on an iPad. Neek can still tap words, and a grown-up can tap "He said it".</div>`}
     ${location.protocol==="file:"?`<div class="warn">Tip: the microphone works best when this page is opened from a website link (https), not straight from a file.</div>`:""}
+    ${gradeChips()}
     <div class="home">
-      <button class="htile" id="goRead" style="background:var(--ocean)"><span class="ic">📖</span>Read with Tobi<small>Read out loud and choose what happens</small></button>
-      <button class="htile" id="goTalk" style="background:var(--grass)"><span class="ic">🗣️</span>Talk Time<small>Say words and get stars</small></button>
-      <a class="htile" href="${AI_TOBI}" target="_blank" rel="noopener" style="background:var(--grape)"><span class="ic">💬</span>Ask Tobi<small>Lessons, quizzes and questions (opens Claude)</small></a>
+      <button class="htile" id="goRead" style="background:var(--red)"><span class="ic">📖</span>Read with Tobi<small>Read out loud and choose what happens</small></button>
+      <button class="htile" id="goTalk" style="background:var(--sun);color:var(--ink)"><span class="ic">🗣️</span>Talk Time<small>Say words and get stars</small></button>
+      <button class="htile" data-subj="grammar" style="background:var(--grape)"><span class="ic">✏️</span>Grammar<small>Nouns, verbs, sentences</small></button>
+      <button class="htile" data-subj="math" style="background:var(--ocean)"><span class="ic">➕</span>Math<small>Counting, adding, time</small></button>
+      <button class="htile" data-subj="science" style="background:var(--grass)"><span class="ic">🔬</span>Science<small>Senses, plants, matter</small></button>
+      <a class="htile" href="${AI_TOBI}" target="_blank" rel="noopener" style="background:var(--pink)"><span class="ic">💬</span>Ask Tobi<small>Questions and quizzes (opens Claude)</small></a>
     </div>`;
   $("#goRead").onclick=storyList; $("#goTalk").onclick=()=>talkTime();
-  bubble(`Hi <b>${NAME}</b>! Let's read and talk together.`);
+  board.querySelectorAll("[data-subj]").forEach(b=>b.onclick=()=>lessonList(b.dataset.subj));
+  wireGrade(home);
+  bubble(`Hi <b>${NAME}</b>! Welcome to Neek AI. What should we learn today?`);
 }
 
 function storyList(){
   leave();
   board.innerHTML = `<h2>Pick a story</h2><p class="hint">Read each word out loud. When you say it, the next word lights up!</p>
-    <div class="stories">${STORIES.map(s=>`<button class="story" data-id="${s.id}"><span class="ic">${s.icon}</span><div><b>${s.title}</b><span>${s.level}</span></div></button>`).join("")}</div>`;
+    <div class="stories">${[...STORIES].sort((a,b)=>(a.g===grade?-1:0)-(b.g===grade?-1:0)||GORDER.indexOf(a.g)-GORDER.indexOf(b.g)).map(s=>`<button class="story" data-id="${s.id}"><span class="ic">${s.icon}</span><div><b>${s.title}</b><span>${GNAME[s.g]}</span></div></button>`).join("")}</div>`;
   board.querySelectorAll(".story").forEach(b=>b.onclick=()=>readStory(STORIES.find(s=>s.id===b.dataset.id)));
   say("Pick a story to read!");
 }
@@ -526,7 +575,9 @@ const TALK = {
       {ic:"❤️",ask:"Say the whole sentence!",say:"I love you",ok:["i love you"]} ]
 };
 let talkLevel = load("tt.talkLevel", 1);
+const TALK_LABELS=["","One word","Two words","Sentences","Tell me"];
 function talkTime(keep){
+  if(talkLevel===4) return tellMe(keep);
   const keepMic = keep===true && wantListen;
   leave(keepMic);
   const card = pick(TALK[talkLevel]);
@@ -534,7 +585,7 @@ function talkTime(keep){
   let got=0, done=false, tries=0, timer=0;
   clearTimers=()=>clearTimeout(timer);
   board.innerHTML = `<h2>Talk Time</h2>
-    <div class="levels">${[1,2,3].map(l=>`<button data-l="${l}" aria-pressed="${l===talkLevel}">${["","One word","Two words","Sentences"][l]}</button>`).join("")}</div>
+    <div class="levels">${[1,2,3,4].map(l=>`<button data-l="${l}" aria-pressed="${l===talkLevel}">${TALK_LABELS[l]}</button>`).join("")}</div>
     <div class="talkcard"><div class="ic" aria-hidden="true">${card.ic}</div>
       <div class="question">${esc(card.ask)}</div>
       <div class="sentence" id="sent">${targetWords.map((w,i)=>`<span class="w" data-i="${i}">${esc(i===0&&card.say===NAME?NAME:card.say.split(/\s+/)[i])}</span>`).join("")}</div></div>
@@ -578,6 +629,522 @@ function talkTime(keep){
   if(keepMic){ handler=onHeard; onSound=()=>encourage("sound"); }
   updateMic();
   say(`${card.ask} ${card.say}.`, `${esc(card.ask)} <b>${esc(card.say)}</b>`).then(()=>{ if(!wantListen && !done) bubble(`${esc(card.ask)} Tap 🎤 and say <b>${esc(card.say)}</b>!`); });
+}
+
+/* ================= numbers in speech ================= */
+const NW={zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19};
+const TW={twenty:20,thirty:30,forty:40,fourty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90};
+/* "twenty three" -> "23", "seven" -> "7"; other words pass through. Also joins "non living" -> "nonliving". */
+function collapse(ws){
+  const out=[]; let cur=null;
+  const flush=()=>{ if(cur!==null){ out.push(String(cur)); cur=null; } };
+  for(let i=0;i<ws.length;i++){
+    const w=ws[i];
+    if(/^\d+$/.test(w)){ flush(); out.push(String(+w)); continue; }
+    if(TW[w]!==undefined){ flush(); cur=TW[w]; continue; }
+    if(NW[w]!==undefined){ if(cur!==null && cur>=20 && cur%10===0 && NW[w]<10){ cur+=NW[w]; flush(); } else { flush(); out.push(String(NW[w])); } continue; }
+    if(w==="hundred"){ flush(); const l=out.length-1; if(l>=0 && /^\d$/.test(out[l])) out[l]=String(+out[l]*100); else out.push("100"); continue; }
+    flush();
+    if(w==="non" && i+1<ws.length){ out.push("non"+ws[++i]); continue; }
+    out.push(w);
+  }
+  flush(); return out;
+}
+const toks = t => collapse(words(String(t).replace(/[\u{1F300}-\u{1FAFF}☀-➿⬀-⯿️‍]/gu," ")));
+const SOUNDALIKE_NUM={to:2,too:2,for:4,won:1,ate:8,tree:3,fore:4};
+function heardNums(alt){ const n=alt.filter(w=>/^\d+$/.test(w)).map(Number); if(!n.length && alt.length<=2) alt.forEach(w=>{ if(SOUNDALIKE_NUM[w]) n.push(SOUNDALIKE_NUM[w]); }); return n; }
+const ORD={first:1,second:2,third:3,1:1,2:2,3:3};
+
+/* Which choice did he say? Strict first, gentler only if that picks exactly one. */
+function choiceIndex(r, voices){
+  for(const lvl of ["exact","mid","easy"]){
+    const hits=new Set();
+    for(const alt of r.alts){
+      const nums=heardNums(alt);
+      voices.forEach((vs,i)=>{ for(const v of vs){ const cw=toks(v); if(!cw.length) continue;
+        if(cw.length===1 && /^\d+$/.test(cw[0])){ if(nums.includes(+cw[0])) hits.add(i); continue; }
+        if(cw.every(w=>alt.some(x=>matchAt(x,w,lvl)))) hits.add(i); } });
+    }
+    if(hits.size===1) return [...hits][0];
+    if(hits.size>1) return -1;
+  }
+  return -1;
+}
+function matchAt(h,t,lvl){ const keep=S.match; S.match=lvl; try{ return match(h,t); } finally{ S.match=keep; } }
+
+/* ================= shared lesson UI ================= */
+let grade = load("tt.grade","K");
+const GNAME={K:"Kindergarten","1":"1st grade","2":"2nd grade"};
+const GORDER=["K","1","2"];
+const SUBJ={
+  grammar:{name:"Grammar",icon:"✏️",color:"var(--grape)"},
+  math:{name:"Math",icon:"➕",color:"var(--ocean)"},
+  science:{name:"Science",icon:"🔬",color:"var(--grass)"}
+};
+const randInt=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const shuffle=a=>{ a=[...a]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const uniq=a=>[...new Set(a)];
+const stripEmoji=s=>String(s).replace(/[\u{1F300}-\u{1FAFF}☀-➿⬀-⯿️‍]/gu,"").trim();
+const rep=(e,n)=>Array(n).fill(e).join("");
+
+function clockSVG(h,m){
+  const ha=((h%12)+m/60)*30, ma=m*6;
+  let nums=""; for(let i=1;i<=12;i++){ const a=(i*30-90)*Math.PI/180; nums+=`<text x="${60+44*Math.cos(a)}" y="${60+44*Math.sin(a)+5}" text-anchor="middle" font-size="13" font-weight="700" fill="#2B2A4C" font-family="Andika,sans-serif">${i}</text>`; }
+  return `<svg class="clock" viewBox="0 0 120 120" role="img" aria-label="clock showing ${h}:${String(m).padStart(2,"0")}">
+    <circle cx="60" cy="60" r="56" fill="#FFFFFF" stroke="#2B2A4C" stroke-width="5"/>${nums}
+    <line x1="60" y1="60" x2="60" y2="32" stroke="#E8553D" stroke-width="7" stroke-linecap="round" transform="rotate(${ha} 60 60)"/>
+    <line x1="60" y1="60" x2="60" y2="18" stroke="#2C7BE5" stroke-width="4" stroke-linecap="round" transform="rotate(${ma} 60 60)"/>
+    <circle cx="60" cy="60" r="5" fill="#2B2A4C"/></svg>`;
+}
+function blocksHTML(n){ const t=Math.floor(n/10), o=n%10;
+  return `<div class="blocks" role="img" aria-label="${t} tens and ${o} ones">${rep('<span class="ten"></span>',t)}<span class="ones">${rep('<span class="one"></span>',o)}</span></div>`; }
+function artHTML(a){
+  if(!a) return "";
+  if(typeof a==="string" && a.startsWith("clock:")){ const [,h,m]=a.split(":"); return `<div class="pageart">${clockSVG(+h,+m)}</div>`; }
+  if(typeof a==="string" && a.startsWith("blocks:")) return blocksHTML(+a.slice(7));
+  return `<div class="pageart" aria-hidden="true">${a}</div>`;
+}
+function micHTML(){ return `<button class="mic" id="mic" aria-label="Microphone">🎤<span class="lbl">Tap to talk</span></button>`; }
+function wireMic(h, snd){
+  if(wantListen){ handler=h; onSound=snd||null; }
+  $("#mic").onclick=()=>{
+    if(wantListen){ stopListening(); bubble("Mic is off. Tap 🎤 to talk again."); return; }
+    if(!micSupported()){ bubble("This browser can't hear words. A grown-up can tap ✓ He said it."); return; }
+    startListening(h); onSound=snd||null; bubble("I'm listening! 👂");
+  };
+  updateMic();
+}
+function showHeard(r){ const el=$("#heard"); if(el) el.innerHTML=`I heard: <b>${esc(r.alts[0].join(" "))}</b>`; }
+function spans(text){ return text.split(/\s+/).map((w,i)=>`<span class="w" data-i="${i}">${esc(w)}</span>`).join(""); }
+
+/* Say-it-with-me: lights words as he says them. Most of the words on a finished try counts as a win. */
+function phrase(text, sel, onWin, onTry){
+  const tw=text.split(/\s+/).map(w=>toks(w).join(" ")).filter(Boolean);
+  let got=0, done=false; const sn={};
+  const hl=()=>document.querySelectorAll(sel+" .w").forEach((b,i)=>{ b.classList.toggle("done",i<got); b.classList.toggle("now",i===got&&!done); });
+  const win=()=>{ if(done) return; done=true; got=tw.length; hl(); onWin(); };
+  hl();
+  const h=r=>{
+    showHeard(r); if(done) return;
+    const ws=r.alts[0]; let k=sn[r.idx]||0;
+    while(k<ws.length && got<tw.length){
+      const t=tw[got].split(" ");
+      if(t.every((p,j)=>ws[k+j]!==undefined && match(ws[k+j],p))){ k+=t.length; got++; hl(); continue; }
+      if(got+1<tw.length && match(ws[k],tw[got+1].split(" ")[0])){ got+=2; k++; hl(); continue; }  // skipped one word: still fine
+      k++;
+    }
+    sn[r.idx]=k;
+    if(got>=tw.length) return win();
+    if(r.isFinal && ws.length){ if(got>=Math.ceil(tw.length*0.6)) return win(); onTry("word"); }
+  };
+  return {h, win, isDone:()=>done};
+}
+function triesKeeper(onCap){ let n=0; return ()=>{ n++; if(n>=+S.tries){ n=0; onCap(); return true; } return false; }; }
+
+/* ================= lessons ================= */
+/* teach: [{art, text, say?, repeat?}]  practice: bank of items or gen() making one item
+   item: {art?, show?, q, say?, choices:[], a, voice?:{choice:[...]}, numbered?, back?, why?} */
+const LESSONS = [
+ /* ---------- GRAMMAR ---------- */
+ {id:"nouns", subj:"grammar", g:"K", icon:"🏷️", title:"Nouns",
+  teach:[
+   {art:"🧒 🏫 🍎", text:"A noun is a person, place, or thing.", repeat:"A noun is a person, place, or thing"},
+   {art:"👩‍🏫 👨‍🚒 👶", text:"People are nouns. Teacher, firefighter, and baby are nouns."},
+   {art:"🏠 🏫 🌳", text:"Places are nouns. Home, school, and park are nouns."},
+   {art:"⚽ 🚗 🐶", text:"Things are nouns too. Ball, car, and dog are nouns.", repeat:"Dog is a noun"}],
+  bank:[["cat","run"],["ball","jump"],["school","sing"],["apple","eat"],["bed","sleep"],["teacher","fast"],["drum","clap"],["mom","happy"]]
+   .map(([n,x])=>({q:"Which word is a noun?", choices:[n,x], a:n, back:`${n[0].toUpperCase()+n.slice(1)} is a noun`}))},
+ {id:"verbs", subj:"grammar", g:"1", icon:"🏃", title:"Action verbs",
+  teach:[
+   {art:"🏃 🦘 🏊", text:"A verb is an action word. It tells what you do.", repeat:"A verb is an action word"},
+   {art:"🏃", text:"Run is a verb. I can run."},
+   {art:"🦘", text:"Jump is a verb. I can jump."},
+   {art:"👏", text:"Clap your hands! Clap is a verb.", repeat:"Clap is a verb"}],
+  bank:[["swim","pool"],["kick","ball"],["read","book"],["hop","frog"],["eat","cake"],["sing","song"],["throw","rock"],["dance","shoe"]]
+   .map(([v,n])=>({q:"Which word is a verb?", say:`Which word is a verb? ${v}, or ${n}?`, choices:[v,n], a:v, back:`${v[0].toUpperCase()+v.slice(1)} is a verb`}))},
+ {id:"caps", subj:"grammar", g:"1", icon:"🔠", title:"Capitals and periods",
+  teach:[
+   {art:"🔠", text:"A sentence starts with a capital letter.", repeat:"A sentence starts with a capital letter"},
+   {art:"⚫", text:"A telling sentence ends with a period. A period is a little dot.", repeat:"It ends with a period"},
+   {art:"🙋", text:"The word I is always a capital letter. I like to read."}],
+  bank:[["The cat is big.","the cat is big."],["We like to play.","we like to play."],["I see a bird.","i see a bird."],["My dog is fun.","My dog is fun"],["Sam has a hat.","sam has a hat."],["It is hot today.","it is hot today"],["I can run fast.","I can run fast"]]
+   .map(([ok,bad])=>({q:"Which sentence is written the right way?", say:"Which sentence is written the right way? Look for the capital letter and the period. Say one or two.", choices:[ok,bad], a:ok, numbered:true, back:ok.replace(/\.$/,"")}))},
+ {id:"adj", subj:"grammar", g:"2", icon:"🎨", title:"Adjectives",
+  teach:[
+   {art:"🎨", text:"An adjective is a describing word. It tells about a noun.", repeat:"An adjective describes a noun"},
+   {art:"🔴⚽", text:"A red ball. Red tells about the ball."},
+   {art:"🐘", text:"A big elephant. Big is an adjective."},
+   {art:"🐱", text:"A soft, fluffy cat. Soft and fluffy are adjectives.", repeat:"Soft and fluffy are adjectives"}],
+  bank:[["tall","tree","🌳"],["happy","dog","🐶"],["cold","ice","🧊"],["tiny","bug","🐞"],["loud","drum","🥁"],["green","frog","🐸"],["hot","soup","🍲"],["shiny","star","⭐"]]
+   .map(([a,n,ic])=>({art:ic, show:`the ${a} ${n}`, q:"Which word describes?", say:`The ${a} ${n}. Which word describes the ${n}?`, choices:[a,n], a, back:`${a[0].toUpperCase()+a.slice(1)} describes the ${n}`}))},
+ {id:"plural", subj:"grammar", g:"2", icon:"🐟", title:"Plurals",
+  teach:[
+   {art:"🐱🐱", text:"Plural means more than one.", repeat:"Plural means more than one"},
+   {art:"🐱 ➜ 🐱🐱", text:"Add s to most words. One cat, two cats.", repeat:"One cat, two cats"},
+   {art:"🦊 ➜ 🦊🦊", text:"Words that end in s, x, sh, or ch add e s. One fox, two foxes.", repeat:"One fox, two foxes"},
+   {art:"🐭 ➜ 🐭🐭", text:"Some words change! One child, two children. One mouse, two mice."}],
+  bank:[["box","boxes","boxs","📦"],["dog","dogs","doges","🐶"],["bus","buses","buss","🚌"],["dish","dishes","dishs","🍽️"],["bench","benches","benchs","🪑"],["child","children","childs","🧒"],["mouse","mice","mouses","🐭"],["foot","feet","foots","🦶"]]
+   .map(([one,ok,bad,ic])=>({art:ic, show:`one ${one}, two ___`, q:"Which word makes it plural?", say:`One ${one}, two what? Look at the spelling. Say one or two.`, choices:[ok,bad], a:ok, numbered:true, back:`One ${one}, two ${ok}`}))},
+ {id:"ask", subj:"grammar", g:"2", icon:"❓", title:"Asking and telling",
+  teach:[
+   {art:"🗣️", text:"A telling sentence tells something. It ends with a period."},
+   {art:"❓", text:"An asking sentence asks a question. It ends with a question mark.", repeat:"An asking sentence ends with a question mark"},
+   {art:"🤔", text:"Asking sentences often start with who, what, where, when, why, or how.", repeat:"Who what where when why how"}],
+  bank:[["Where is my hat?","asking"],["The sun is hot.","telling"],["Can you swim?","asking"],["I like pizza.","telling"],["What is your name?","asking"],["Dogs can bark.","telling"],["How old are you?","asking"],["We went to the park.","telling"]]
+   .map(([s,ans])=>({show:s, q:"Is it an asking or a telling sentence?", say:`${s} Is that an asking sentence, or a telling sentence?`, choices:["asking","telling"], a:ans, back:s.replace(/[.?]$/,"")}))},
+ {id:"pron", subj:"grammar", g:"2", icon:"👉", title:"Pronouns",
+  teach:[
+   {art:"👉", text:"A pronoun takes the place of a noun.", repeat:"A pronoun takes the place of a noun"},
+   {art:"👦", text:"Instead of saying Sam, we can say he."},
+   {art:"👧", text:"Instead of saying Mia, we can say she."},
+   {art:"👫", text:"Instead of saying the kids, we can say they. For a thing, we say it.", repeat:"he she they it"}],
+  bank:[["Tom is tall.","is tall.","he","she"],["Ana has a cat.","has a cat.","she","he"],["The dogs run.","run.","they","it"],["The book is red.","is red.","it","they"],["Mom and I sing.","sing.","we","he"],["Dad cooks dinner.","cooks dinner.","he","they"],["The birds fly.","fly.","they","she"]]
+   .map(([s,rest,ok,bad])=>({show:`${s} ___ ${rest}`, q:"Which pronoun fits?", say:`${s} Blank ${rest} Which word fits? ${ok}, or ${bad}?`, choices:[ok,bad], a:ok, back:`${ok[0].toUpperCase()+ok.slice(1)} ${rest.replace(/\.$/,"")}`}))},
+
+ /* ---------- MATH ---------- */
+ {id:"count", subj:"math", g:"K", icon:"🔢", title:"Count to 20",
+  teach:[
+   {art:"🍎🍎🍎", text:"We count to find out how many. Touch each one and say a number.", say:"We count to find out how many. Touch each one and say a number. One, two, three. Three apples!", repeat:"one two three"},
+   {art:"⭐⭐⭐⭐⭐", text:"The last number you say tells how many.", say:"One, two, three, four, five. The last number you say tells how many. Five stars!", repeat:"There are five stars"}],
+  gen(){ const n=randInt(3,grade==="K"?12:20), th=pick(["🍎","⭐","🐞","🚗","🎈","🐟","🍪","🦆"]);
+    return {art:`<span class="objs">${rep(th,n)}</span>`, q:"How many?", say:"Count them with your finger. How many?", choices:uniq([n,n+1,n>3?n-1:n+2]).map(String), a:String(n), back:`I count ${n}`}; }},
+ {id:"add10", subj:"math", g:"K", icon:"➕", title:"Adding to 10",
+  teach:[
+   {art:"🍎🍎 + 🍎", text:"Adding means putting together.", repeat:"Adding means putting together"},
+   {art:"🍎🍎 + 🍎 = 🍎🍎🍎", text:"2 + 1 = 3", say:"Two apples plus one apple. Two plus one equals three.", repeat:"Two plus one equals three"},
+   {art:"➕", text:"The plus sign means add. The equal sign means is the same as.", repeat:"Plus means add"}],
+  gen(){ const a=randInt(1,6), b=randInt(1,Math.max(1,10-a)), s=a+b, th=pick(["🍎","⭐","🐞","🍪","🎈"]);
+    return {art:`<span class="objs">${rep(th,a)}</span> <b class="op">+</b> <span class="objs">${rep(th,b)}</span>`, show:`${a} + ${b} = ?`, q:"What is the answer?", say:`What is ${a} plus ${b}?`, choices:uniq([s,s+1,s>1?s-1:s+2]).map(String), a:String(s), back:`${a} plus ${b} equals ${s}`}; }},
+ {id:"sub20", subj:"math", g:"1", icon:"➖", title:"Take away",
+  teach:[
+   {art:"🍪🍪🍪🍪", text:"Subtracting means taking away.", repeat:"Subtracting means taking away"},
+   {art:"🍪🍪🍪 <s>🍪</s>", text:"4 − 1 = 3", say:"Four cookies. Eat one! Four minus one equals three.", repeat:"Four minus one equals three"},
+   {art:"➖", text:"The minus sign means take away. The answer gets smaller.", repeat:"Minus means take away"}],
+  gen(){ const a=randInt(5,grade==="K"?10:20), b=randInt(1,Math.min(a-1,10)), d=a-b, th=pick(["🍪","🎈","🐟","⭐"]);
+    const art = a<=10 ? `<span class="objs">${rep(th,d)}<s>${rep(th,b)}</s></span>` : "➖";
+    return {art, show:`${a} − ${b} = ?`, q:"What is the answer?", say:`What is ${a} minus ${b}?`, choices:uniq([d,d+1,d>0?d-1:d+2]).map(String), a:String(d), back:`${a} minus ${b} equals ${d}`}; }},
+ {id:"place", subj:"math", g:"1", icon:"🧱", title:"Tens and ones",
+  teach:[
+   {art:"blocks:10", text:"Ten ones make one ten.", repeat:"Ten ones make one ten"},
+   {art:"blocks:23", text:"23 has 2 tens and 3 ones.", say:"Twenty three has two tens and three ones.", repeat:"Two tens and three ones"},
+   {art:"blocks:40", text:"40 has 4 tens and 0 ones.", say:"Forty has four tens and zero ones. The tens come first."}],
+  gen(){ const n=randInt(11,grade==="2"?99:59), t=Math.floor(n/10), o=n%10, kind=pick(["tens","ones","number"]);
+    if(kind==="number") return {art:`blocks:${n}`, q:"What number is this?", say:"Count the tens, then the ones. What number is this?", choices:uniq([n,o*10+t===n?n+10:o*10+t,n+1]).filter(x=>x>0&&x<100).map(String), a:String(n), back:`${t} tens and ${o} ones is ${n}`};
+    const ans = kind==="tens"?t:o;
+    return {art:`blocks:${n}`, show:String(n), q:`How many ${kind} are in ${n}?`, say:`How many ${kind} are in ${n}?`, choices:uniq([ans, kind==="tens"?o:t, ans+1]).map(String), a:String(ans), back:`${n} has ${t} tens and ${o} ones`}; }},
+ {id:"time", subj:"math", g:"1", icon:"🕒", title:"Telling time",
+  teach:[
+   {art:"clock:3:00", text:"The short hand shows the hour.", repeat:"The short hand shows the hour"},
+   {art:"clock:3:00", text:"The long hand shows the minutes. When it points to 12, it is o'clock. This is 3 o'clock.", repeat:"Three o'clock"},
+   {art:"clock:3:30", text:"When the long hand points to 6, it is half past. This is 3:30.", say:"When the long hand points to six, it is half past. This is three thirty.", repeat:"Three thirty"}],
+  gen(){ const h=randInt(1,12), half=Math.random()<.5, m=half?30:0, o=h%12+1;
+    const lab=(hh,mm)=>mm?`${hh}:30`:`${hh} o'clock`;
+    const right=lab(h,m), wrong1=lab(o,m), wrong2=lab(h,half?0:30);
+    const voice={}; [[h,m],[o,m],[h,half?0:30]].forEach(([hh,mm])=>voice[lab(hh,mm)] = mm?[`${hh} 30`,`half past ${hh}`]:[`${hh} oclock`]);
+    return {art:`clock:${h}:${m}`, q:"What time is it?", say:"Look at the short hand, then the long hand. What time is it?", choices:[right,wrong1,wrong2], a:right, voice, back:`It is ${m?`${h} thirty`:`${h} o'clock`}`}; }},
+ {id:"add100", subj:"math", g:"2", icon:"💯", title:"Add and subtract to 100",
+  teach:[
+   {art:"blocks:23", text:"To add big numbers, add the ones first. Then add the tens.", repeat:"Add the ones, then the tens"},
+   {art:"23 + 14", text:"23 + 14: 3 + 4 = 7 ones. 2 tens + 1 ten = 3 tens. So 23 + 14 = 37.", say:"Twenty three plus fourteen. Three plus four is seven ones. Two tens plus one ten is three tens. So the answer is thirty seven.", repeat:"Twenty three plus fourteen equals thirty seven"},
+   {art:"58 − 25", text:"Subtracting works the same way. 8 − 5 = 3 ones. 5 tens − 2 tens = 3 tens. 58 − 25 = 33.", say:"Subtracting works the same way. Eight minus five is three ones. Five tens minus two tens is three tens. Fifty eight minus twenty five is thirty three."}],
+  gen(){ if(Math.random()<.5){ const at=randInt(1,6), bt=randInt(1,8-at), ao=randInt(0,8), bo=randInt(0,9-ao), a=at*10+ao, b=bt*10+bo, s=a+b;
+      return {show:`${a} + ${b} = ?`, q:"Add the ones, then the tens.", say:`What is ${a} plus ${b}?`, choices:uniq([s,s+10,s-1>0?s-1:s+1]).map(String), a:String(s), back:`${a} plus ${b} equals ${s}`}; }
+    const at=randInt(3,9), bt=randInt(1,at-1), ao=randInt(1,9), bo=randInt(0,ao), a=at*10+ao, b=bt*10+bo, d=a-b;
+    return {show:`${a} − ${b} = ?`, q:"Subtract the ones, then the tens.", say:`What is ${a} minus ${b}?`, choices:uniq([d,d+10,d+1]).map(String), a:String(d), back:`${a} minus ${b} equals ${d}`}; }},
+ {id:"skip", subj:"math", g:"2", icon:"🦘", title:"Skip counting",
+  teach:[
+   {art:"🦘", text:"Skip counting means counting by jumps."},
+   {art:"🧦🧦 🧦🧦 🧦🧦", text:"By 2s: 2, 4, 6, 8, 10", say:"Count by twos. Two, four, six, eight, ten.", repeat:"2 4 6 8 10"},
+   {art:"🖐️🖐️🖐️🖐️", text:"By 5s: 5, 10, 15, 20", say:"Count by fives. Five, ten, fifteen, twenty.", repeat:"5 10 15 20"},
+   {art:"🔟🔟🔟", text:"By 10s: 10, 20, 30, 40, 50", say:"Count by tens. Ten, twenty, thirty, forty, fifty.", repeat:"10 20 30 40 50"}],
+  gen(){ const st=pick([2,5,10]), k=randInt(1,6), seq=[k*st,(k+1)*st,(k+2)*st], nx=(k+3)*st;
+    return {show:`${seq.join(", ")}, ___`, q:`Count by ${st}s. What comes next?`, say:`Count by ${st}s. ${seq.join(", ")}. What comes next?`, choices:uniq([nx,nx+st,nx-1]).map(String), a:String(nx), back:`${seq.join(" ")} ${nx}`}; }},
+ {id:"evenodd", subj:"math", g:"2", icon:"🧦", title:"Even and odd",
+  teach:[
+   {art:"🧦🧦 🧦🧦", text:"Even numbers can make pairs with none left over. 4 is even.", repeat:"Four is even"},
+   {art:"🧦🧦 🧦🧦 🧦", text:"Odd numbers have one left over. 5 is odd.", repeat:"Five is odd"},
+   {art:"0 2 4 6 8", text:"Even numbers end in 0, 2, 4, 6, or 8.", say:"Even numbers end in zero, two, four, six, or eight.", repeat:"0 2 4 6 8"}],
+  gen(){ const n=randInt(1,grade==="2"?50:12), ans=n%2?"odd":"even";
+    const art = n<=12 ? `<span class="objs">${Array.from({length:Math.ceil(n/2)},(_,i)=>2*i+1<n?"🧦🧦":"🧦").join(" ")}</span>` : "";
+    return {art, show:String(n), q:`Is ${n} even or odd?`, say:`Is ${n} even, or odd?`, choices:["even","odd"], a:ans, back:`${n} is ${ans}`}; }},
+ {id:"compare", subj:"math", g:"2", icon:"🐊", title:"Greater or less",
+  teach:[
+   {art:"🐊", text:"Greater means bigger. Less means smaller.", repeat:"Greater means bigger"},
+   {art:"47 vs 74", text:"Look at the tens first. 74 has 7 tens. 47 has 4 tens. So 74 is greater.", say:"Look at the tens first. Seventy four has seven tens. Forty seven has four tens. So seventy four is greater.", repeat:"74 is greater than 47"},
+   {art:"35 vs 38", text:"If the tens are the same, look at the ones. 38 is greater than 35.", say:"If the tens are the same, look at the ones. Thirty eight is greater than thirty five."}],
+  gen(){ let a=randInt(10,99), b=Math.random()<.4 ? (a%10)*10+Math.floor(a/10) : randInt(10,99); if(b===a||b<10) b=a+randInt(1,9)>99?a-randInt(1,9):a+randInt(1,9);
+    const greater=Math.random()<.6, ans=greater?Math.max(a,b):Math.min(a,b), other=greater?Math.min(a,b):Math.max(a,b);
+    return {show:`${a}    ${b}`, q:`Which number is ${greater?"greater":"less"}?`, say:`Which number is ${greater?"greater":"less"}? ${a}, or ${b}?`, choices:[String(a),String(b)], a:String(ans), back:`${ans} is ${greater?"greater":"less"} than ${other}`}; }},
+ {id:"story", subj:"math", g:"2", icon:"📝", title:"Story problems",
+  teach:[
+   {art:"📝", text:"A story problem is math inside a story. First, find the numbers.", repeat:"First find the numbers"},
+   {art:"➕", text:"In all and altogether mean add.", repeat:"In all means add"},
+   {art:"➖", text:"Left, fewer, and fly away mean subtract.", repeat:"Left means subtract"}],
+  gen(){ const a=randInt(8,40), b=randInt(2,Math.min(15,a-1));
+    const T=[
+      [`${NAME} has ${a} toy cars. He gets ${b} more. How many cars does he have in all?`, a+b],
+      [`There are ${a} birds in a tree. ${b} fly away. How many birds are left?`, a-b],
+      [`Mom bakes ${a} cookies. Dad bakes ${b} cookies. How many cookies are there altogether?`, a+b],
+      [`The class has ${a} crayons. They lose ${b}. How many crayons are left?`, a-b],
+      [`${NAME} reads ${a} pages on Monday and ${b} pages on Tuesday. How many pages in all?`, a+b]];
+    const [txt,ans]=pick(T);
+    return {art:"📝", show:txt, q:"What is the answer?", say:txt, choices:uniq([ans,ans+1,ans+10]).map(String), a:String(ans), back:`The answer is ${ans}`}; }},
+
+ /* ---------- SCIENCE ---------- */
+ {id:"senses", subj:"science", g:"K", icon:"👀", title:"Five senses",
+  teach:[
+   {art:"👀 👂 👃 👅 ✋", text:"We have five senses. They help us learn about the world.", repeat:"We have five senses"},
+   {art:"👀", text:"We see with our eyes.", repeat:"I see with my eyes"},
+   {art:"👂", text:"We hear with our ears.", repeat:"I hear with my ears"},
+   {art:"👃 👅", text:"We smell with our nose, and taste with our tongue."},
+   {art:"✋", text:"We touch and feel with our hands and skin.", repeat:"I touch with my hands"}],
+  bank:[["🎵","hear music","👂 ears","I hear with my ears"],["🌸","smell a flower","👃 nose","I smell with my nose"],["🌈","see a rainbow","👀 eyes","I see with my eyes"],["🍋","taste a lemon","👅 tongue","I taste with my tongue"],["🐱","feel a soft kitten","✋ hands","I feel with my hands"],["🐶","hear a dog bark","👂 ears","I hear with my ears"],["🍪","smell cookies baking","👃 nose","I smell with my nose"]]
+   .map(([ic,act,ans,back])=>({art:ic, q:`What do you use to ${act}?`, choices:uniq([ans,...shuffle(["👀 eyes","👂 ears","👃 nose","👅 tongue","✋ hands"].filter(x=>x!==ans)).slice(0,2)]), a:ans, back}))},
+ {id:"living", subj:"science", g:"K", icon:"🌱", title:"Living and nonliving",
+  teach:[
+   {art:"🐶 🌳 🧒", text:"Living things grow, eat, and breathe. Dogs, trees, and people are living.", repeat:"Living things grow"},
+   {art:"🪨 🚗 ⚽", text:"Nonliving things do not grow or eat. Rocks, cars, and balls are nonliving.", repeat:"A rock is nonliving"},
+   {art:"🍎 💧 💨", text:"Living things need food, water, and air."}],
+  bank:[["🐱","cat","living"],["🪨","rock","nonliving"],["🌻","flower","living"],["🪑","chair","nonliving"],["🐦","bird","living"],["🚗","car","nonliving"],["🌳","tree","living"],["👟","shoe","nonliving"],["🐟","fish","living"],["🥤","cup","nonliving"]]
+   .map(([ic,x,ans])=>({art:ic, q:`Is a ${x} living or nonliving?`, say:`Is a ${x} living, or nonliving?`, choices:["living","nonliving"], a:ans, back:`A ${x} is ${ans}`}))},
+ {id:"plants", subj:"science", g:"1", icon:"🌻", title:"What plants need",
+  teach:[
+   {art:"🌻", text:"Plants are living things. They need sun, water, air, and soil to grow.", repeat:"Plants need sun and water"},
+   {art:"🥕", text:"The roots drink water from the soil.", repeat:"Roots drink water"},
+   {art:"🌿", text:"The stem holds the plant up. The leaves use sunlight to make food."},
+   {art:"🌸", text:"The flower makes seeds. Seeds grow into new plants!"}],
+  bank:[
+   {q:"Which part drinks water from the soil?", choices:["roots","leaves","flower"], a:"roots", back:"The roots drink water"},
+   {q:"Which part makes food from sunlight?", choices:["leaves","roots","stem"], a:"leaves", back:"The leaves make food"},
+   {q:"Which part holds the plant up?", choices:["stem","flower","seed"], a:"stem", back:"The stem holds the plant up"},
+   {art:"🌱", q:"What does a plant need to grow?", choices:["💧 water","🍬 candy","🧸 toys"], a:"💧 water", back:"Plants need water to grow"},
+   {q:"Which part makes seeds?", choices:["flower","roots","stem"], a:"flower", back:"The flower makes seeds"},
+   {art:"☀️", q:"What gives plants light?", choices:["☀️ sun","🌙 moon","💡 lamp"], a:"☀️ sun", back:"The sun gives plants light"}]},
+ {id:"seasons", subj:"science", g:"1", icon:"⛅", title:"Weather and seasons",
+  teach:[
+   {art:"❄️ 🌷 ☀️ 🍂", text:"There are four seasons: winter, spring, summer, and fall.", repeat:"Winter, spring, summer, fall"},
+   {art:"❄️", text:"Winter is cold. It can snow."},
+   {art:"🌷", text:"In spring, it rains and flowers grow."},
+   {art:"☀️", text:"Summer is hot and sunny."},
+   {art:"🍂", text:"In fall, leaves change color and fall down.", repeat:"Leaves fall in the fall"}],
+  bank:[
+   {art:"⛄", q:"When does it snow?", choices:["winter","summer"], a:"winter", back:"It snows in winter"},
+   {art:"🍂", q:"When do leaves fall down?", choices:["fall","spring"], a:"fall", back:"Leaves fall in the fall"},
+   {art:"🏖️", q:"When is it hot and sunny?", choices:["summer","winter"], a:"summer", back:"Summer is hot and sunny"},
+   {art:"🌷", q:"When do flowers start to grow?", choices:["spring","fall"], a:"spring", back:"Flowers grow in spring"},
+   {art:"🌧️", q:"What do you wear in the rain?", choices:["🧥 raincoat","🩱 swimsuit"], a:"🧥 raincoat", back:"I wear a raincoat in the rain"},
+   {art:"☁️", q:"What falls from rain clouds?", choices:["💧 water","🍬 candy"], a:"💧 water", back:"Rain is water"}]},
+ {id:"matter", subj:"science", g:"2", icon:"🧊", title:"Solids, liquids, gases",
+  teach:[
+   {art:"🧊 💧 💨", text:"Everything is made of matter. Matter can be a solid, a liquid, or a gas.", repeat:"Solid, liquid, gas"},
+   {art:"🧊 🪨", text:"A solid keeps its own shape.", repeat:"A solid keeps its shape"},
+   {art:"💧 🥛", text:"A liquid flows. It takes the shape of its cup.", repeat:"A liquid flows"},
+   {art:"🎈 💨", text:"A gas spreads out to fill its space. Air is a gas."},
+   {art:"🧊 ➜ 💧", text:"When ice melts, a solid turns into a liquid."}],
+  bank:[["🪨","a rock","solid"],["🧃","juice","liquid"],["🎈","the air in a balloon","gas"],["🧊","an ice cube","solid"],["🥛","milk","liquid"],["♨️","steam","gas"],["📕","a book","solid"],["🌧️","rain","liquid"]]
+   .map(([ic,x,ans])=>({art:ic, q:`Is ${x} a solid, a liquid, or a gas?`, choices:["solid","liquid","gas"], a:ans, back:`${x[0].toUpperCase()+x.slice(1)} is a ${ans}`}))},
+ {id:"cycle", subj:"science", g:"2", icon:"🦋", title:"Butterfly life cycle",
+  teach:[
+   {art:"🔄", text:"A life cycle is how a living thing grows and changes."},
+   {art:"🥚", text:"First, a butterfly lays a tiny egg on a leaf."},
+   {art:"🐛", text:"Next, a caterpillar hatches. It eats and eats leaves!", repeat:"The caterpillar eats leaves"},
+   {art:"🫘", text:"Then the caterpillar makes a chrysalis. It changes inside."},
+   {art:"🦋", text:"Last, a butterfly comes out!", repeat:"Egg, caterpillar, chrysalis, butterfly"}],
+  bank:[
+   {art:"🥚", q:"What comes first?", choices:["🥚 egg","🦋 butterfly"], a:"🥚 egg", back:"First comes the egg"},
+   {art:"🥚 ➜ ?", q:"What hatches from the egg?", choices:["🐛 caterpillar","🦋 butterfly","🐦 bird"], a:"🐛 caterpillar", back:"A caterpillar hatches"},
+   {art:"🐛", q:"What does a caterpillar eat?", choices:["🍃 leaves","🪨 rocks"], a:"🍃 leaves", back:"A caterpillar eats leaves"},
+   {art:"🫘 ➜ ?", q:"What comes out of the chrysalis?", choices:["🦋 butterfly","🥚 egg"], a:"🦋 butterfly", back:"A butterfly comes out"},
+   {art:"🐸", q:"A tadpole grows into a what?", choices:["🐸 frog","🐟 fish"], a:"🐸 frog", back:"A tadpole grows into a frog"},
+   {art:"🐣", q:"What hatches from a chicken egg?", choices:["🐥 chick","🐶 puppy"], a:"🐥 chick", back:"A chick hatches from the egg"}]},
+ {id:"habitat", subj:"science", g:"2", icon:"🏜️", title:"Animal habitats",
+  teach:[
+   {art:"🏠", text:"A habitat is where an animal lives.", repeat:"A habitat is where an animal lives"},
+   {art:"🌊 🐳", text:"Whales and fish live in the ocean."},
+   {art:"🌵 🐪", text:"Camels and lizards live in the desert. It is hot and dry."},
+   {art:"🌲 🦉", text:"Owls and bears live in the forest."},
+   {art:"🧊 🐧", text:"Polar bears and penguins live where it is very cold, like the Arctic.", repeat:"Penguins live where it is cold"}],
+  bank:[["🐪","camel","desert"],["🐳","whale","ocean"],["🦉","owl","forest"],["🐻‍❄️","polar bear","arctic"],["🐠","fish","ocean"],["🦎","lizard","desert"],["🦌","deer","forest"],["🐧","penguin","arctic"]]
+   .map(([ic,x,ans])=>({art:ic, q:`Where does a ${x} live?`, say:`Where does a ${x} live?`, choices:uniq([ans,...shuffle(["ocean","desert","forest","arctic"].filter(h=>h!==ans)).slice(0,2)]), a:ans, back:`A ${x} lives in the ${ans}`}))},
+ {id:"force", subj:"science", g:"2", icon:"🧲", title:"Push and pull",
+  teach:[
+   {art:"👐", text:"A force is a push or a pull.", repeat:"A force is a push or a pull"},
+   {art:"⚽", text:"A push moves something away from you. Kicking a ball is a push."},
+   {art:"🚪", text:"A pull moves something closer to you. Opening a drawer is a pull.", repeat:"A pull moves it closer"},
+   {art:"🧲", text:"A bigger push makes things go faster and farther. Magnets can pull things made of iron."}],
+  bank:[["⚽","kicking a ball","push"],["🗄️","opening a drawer","pull"],["🛝","pushing a swing","push"],["🛒","pulling a wagon","pull"],["🪢","tug of war","pull"],["🚪","closing a door","push"],["🧲","a magnet picking up a paper clip","pull"],["🛷","sliding a box away from you","push"]]
+   .map(([ic,x,ans])=>({art:ic, q:`Is ${x} a push or a pull?`, say:`Is ${x} a push, or a pull?`, choices:["push","pull"], a:ans, back:`${x[0].toUpperCase()+x.slice(1)} is a ${ans}`}))}
+];
+
+/* ================= lesson screens ================= */
+function gradeChips(){ return `<div class="levels" role="group" aria-label="Grade">${GORDER.map(g=>`<button data-g="${g}" aria-pressed="${g===grade}">${GNAME[g]}</button>`).join("")}</div>`; }
+function wireGrade(after){ board.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{ grade=b.dataset.g; save("tt.grade",grade); after(); }); }
+
+function lessonList(subj){
+  leave();
+  const S2=SUBJ[subj], upto=GORDER.indexOf(grade);
+  const groups=GORDER.slice(0,upto+1).reverse().map(g=>[g,LESSONS.filter(l=>l.subj===subj&&l.g===g)]).filter(([,ls])=>ls.length);
+  board.innerHTML = `<h2>${S2.icon} ${S2.name}</h2><p class="hint">Pick a lesson. Tobi teaches first, then you practice by talking.</p>
+    ${gradeChips()}
+    ${groups.map(([g,ls])=>`<h3 class="ghead">${GNAME[g]}</h3><div class="stories">${ls.map(l=>`<button class="story" data-id="${l.id}"><span class="ic">${l.icon}</span><div><b>${esc(l.title)}</b><span>Learn, then practice</span></div></button>`).join("")}</div>`).join("")}`;
+  wireGrade(()=>lessonList(subj));
+  board.querySelectorAll(".story").forEach(b=>b.onclick=()=>teach(LESSONS.find(l=>l.id===b.dataset.id),0));
+  say(`Let's learn ${S2.name}! Pick a lesson.`);
+}
+
+function lessonHead(L, label){ const S2=SUBJ[L.subj]; return `<div class="lhead"><span class="tag" style="background:${S2.color}">${S2.icon} ${S2.name}</span><span class="step">${label}</span></div><h2>${esc(L.title)}</h2>`; }
+
+function teach(L, i){
+  leave(true);
+  const s=L.teach[i], last=i===L.teach.length-1;
+  let timer=0, done=false; clearTimers=()=>clearTimeout(timer);
+  board.innerHTML = `${lessonHead(L,`Learn ${i+1} of ${L.teach.length}`)}
+    ${artHTML(s.art)}
+    <p class="teachtext">${esc(s.text)}</p>
+    ${s.repeat?`<p class="say-lbl">Say it with me:</p><div class="sentence" id="rep">${spans(s.repeat)}</div>`:""}
+    <div class="controls">
+      <div class="side"><button class="btn y" id="hearBtn">👂 Hear it again</button>${i?`<button class="btn w2" id="prevBtn">⬅ Back</button>`:""}</div>
+      ${micHTML()}
+      <div class="side">${s.repeat?`<button class="btn g" id="saidBtn">✓ He said it</button>`:""}<button class="btn p" id="nextBtn">${last?"Practice ➜":"Next ➜"}</button></div>
+    </div>
+    <div class="heard" id="heard"></div>`;
+  const go=()=>{ if(done) return; done=true; clearTimeout(timer); last ? practiceIntro(L) : teach(L,i+1); };
+  $("#nextBtn").onclick=go;
+  if(i) $("#prevBtn").onclick=()=>teach(L,i-1);
+  const spoken=s.say||s.text;
+  $("#hearBtn").onclick=()=>say(spoken+(s.repeat?` Say it with me. ${s.repeat}.`:""), false);
+  if(s.repeat){
+    const cap=triesKeeper(async()=>{ p.win(); });
+    const p=phrase(s.repeat,"#rep", async()=>{ addStar(); await say(pick(["You said it!","Great talking!","Wow, I heard you!","Super!"])); timer=setTimeout(go,500); },
+      async()=>{ if(p.isDone()) return; if(!cap()) await say(pick([`Good try! ${s.repeat}.`,`I heard you! Again: ${s.repeat}.`])); });
+    $("#saidBtn").onclick=()=>p.win();
+    wireMic(p.h, ()=>{ if(!p.isDone()) bubble("I heard your voice! Keep going! 🌟"); });
+    say(`${spoken} Now say it with me. ${s.repeat}.`, `${esc(s.text)}<br>Say it with me! 🗣️`);
+  } else {
+    const NEXTW=["next","okay","ok","yes","ready","go","more"];
+    wireMic(r=>{ showHeard(r); if(r.alts.some(a=>a.some(w=>NEXTW.includes(w)))) go(); });
+    say(spoken).then(()=>{ if(!done) bubble(`${esc(s.text)}<br><small>Say <b>next</b> or tap Next ➜</small>`); });
+  }
+}
+
+function practiceIntro(L){
+  leave(true);
+  board.innerHTML = `${lessonHead(L,"Practice time")}<div class="pageart">🎯</div>
+    <div class="question">Now you try! Say your answers out loud.</div>
+    <div class="controls"><button class="btn g" id="goP">Start practice ➜</button><button class="btn w2" id="again">🔁 Learn it again</button></div>`;
+  $("#goP").onclick=()=>practice(L); $("#again").onclick=()=>teach(L,0);
+  say("Great learning! Now it's practice time. Say your answers out loud.").then(()=>{ if($("#goP")) practice(L); });
+}
+
+function practice(L){
+  const items = L.gen ? Array.from({length:5},()=>L.gen()) : shuffle(L.bank).slice(0,5);
+  let qi=0, right=0;
+  const nextItem=()=>{ qi++; qi<items.length ? showItem() : finish(); };
+  function showItem(){
+    leave(true);
+    const it=items[qi], order=shuffle(it.choices);
+    let timer=0, settled=false, wrong=0; clearTimers=()=>clearTimeout(timer);
+    const voices=order.map(c=>{ const v=it.voice&&it.voice[c]; return v?(Array.isArray(v)?v:[v]):[stripEmoji(c)]; });
+    board.innerHTML = `${lessonHead(L,`Practice ${qi+1} of ${items.length}`)}
+      ${artHTML(it.art)}
+      ${it.show?`<div class="showtext">${esc(it.show)}</div>`:""}
+      <div class="question">${esc(it.q)}</div>
+      <div class="choices" id="chs">${order.map((c,k)=>`<button class="choice" data-k="${k}">${it.numbered?`<span class="num">${k+1}</span>`:""}<span class="lb">${esc(c)}</span></button>`).join("")}</div>
+      <div id="backArea"></div>
+      <div class="controls">
+        <div class="side"><button class="btn y" id="hearBtn">👂 Hear it again</button></div>
+        ${micHTML()}
+        <div class="side"><button class="btn w2" id="skipBtn">Skip ➜</button></div>
+      </div>
+      <div class="heard" id="heard"></div>`;
+    const prompt = it.say || `${it.q} ${it.show?it.show+". ":""}${it.numbered?"Say one or two.":voices.map(v=>v[0]).join(", or ")+"?"}`;
+    const speakQ=()=>say(prompt, false);
+    $("#hearBtn").onclick=speakQ;
+    $("#skipBtn").onclick=()=>{ settled=true; nextItem(); };
+    const btn=k=>board.querySelector(`.choice[data-k="${k}"]`);
+    const sayBack=async()=>{
+      if(!it.back){ timer=setTimeout(nextItem,700); return; }
+      $("#chs").querySelectorAll(".choice").forEach(b=>b.disabled=true);
+      $("#backArea").innerHTML=`<p class="say-lbl">Now say it with me:</p><div class="sentence" id="back">${spans(it.back)}</div>
+        <div class="controls"><button class="btn g" id="saidBtn">✓ He said it</button></div>`;
+      const cap=triesKeeper(()=>p.win());
+      const p=phrase(it.back,"#back", async()=>{ addStar(); await say(pick(["You said it!","Great talking!","Beautiful sentence!","High five!"])); timer=setTimeout(nextItem,500); },
+        async()=>{ if(p.isDone()) return; if(!cap()) await say(pick([`Good try! ${it.back}.`,`I heard you! Again: ${it.back}.`])); });
+      $("#saidBtn").onclick=()=>p.win();
+      wireMic(p.h, ()=>{ if(!p.isDone()) bubble("I heard your voice! Keep going! 🌟"); });
+      await say(`Now say it with me. ${it.back}.`, `Say it with me! 🗣️`);
+    };
+    const chooseK=async k=>{
+      if(settled) return;
+      if(order[k]===it.a){
+        settled=true; right++; btn(k).classList.add("right"); addStar();
+        await say(`${pick(["Yes!","That's right!","You got it!","Great job!","Super smart!"])} ${it.why||""}`);
+        sayBack();
+      } else {
+        wrong++; const b=btn(k); b.classList.remove("wrong"); void b.offsetWidth; b.classList.add("wrong");
+        if(wrong>=2){ settled=true; const rk=order.indexOf(it.a); btn(rk).classList.add("right");
+          await say(`Good trying! The answer is ${voices[rk][0]}.`, `Good trying! 💪 The answer is <b>${esc(it.a)}</b>.`); sayBack(); }
+        else await say(pick(["Not quite. Try again!","Almost! Look again.","Good try! Try the other one."]));
+      }
+    };
+    board.querySelectorAll(".choice").forEach(b=>b.onclick=()=>chooseK(+b.dataset.k));
+    const nudge=triesKeeper(()=>{});
+    wireMic(r=>{
+      showHeard(r); if(settled) return;
+      let k=-1;
+      if(it.numbered){ for(const alt of r.alts){ const n=alt.map(w=>ORD[w]).find(x=>x); if(n&&n<=order.length){ k=n-1; break; } } }
+      else k=choiceIndex(r, voices);
+      if(k>=0) return chooseK(k);
+      if(r.isFinal && r.alts[0].length){ nudge(); say(it.numbered?"I heard you! Say one, or two.":`I heard you! Say ${voices.map(v=>v[0]).join(", or ")}.`); }
+    }, ()=>{ if(!settled) bubble("I heard your voice! Say your answer. 🌟"); });
+    say(prompt, `${esc(it.q)}${wantListen?"":"<br><small>Tap 🎤 and say your answer, or tap it.</small>"}`);
+  }
+  function finish(){
+    leave(); addStar(2);
+    board.innerHTML = `${lessonHead(L,"All done!")}<div class="pageart">🏆</div>
+      <div class="question">You got ${right} out of ${items.length}!</div>
+      <div class="controls"><button class="btn g" id="pAgain">Practice again</button><button class="btn y" id="lAgain">🔁 Learn it again</button><button class="btn" id="more">More ${SUBJ[L.subj].name}</button></div>`;
+    $("#pAgain").onclick=()=>practice(L); $("#lAgain").onclick=()=>teach(L,0); $("#more").onclick=()=>lessonList(L.subj);
+    say(`You did it, ${NAME}! You got ${right} out of ${items.length}. I am so proud of your learning and your talking!`);
+  }
+  showItem();
+}
+
+/* ================= Talk Time: Tell me (open talking) ================= */
+const TELL=[
+ {ic:"🦁",ask:"Tell me about your favorite animal."},
+ {ic:"🍕",ask:"What is your favorite food? Why do you like it?"},
+ {ic:"🏫",ask:"What did you do at school today?"},
+ {ic:"👨‍👩‍👦",ask:"Tell me about your family."},
+ {ic:"🚀",ask:"What do you want to be when you grow up?"},
+ {ic:"😊",ask:"What makes you happy?"},
+ {ic:"🎮",ask:"What is your favorite game to play?"},
+ {ic:"🌙",ask:"Tell me about a dream you had."}];
+function tellMe(keep){
+  const keepMic = keep===true && wantListen;
+  leave(keepMic);
+  const card=pick(TELL); let heard=[], done=false, timer=0; clearTimers=()=>clearTimeout(timer);
+  board.innerHTML = `<h2>Talk Time</h2>
+    <div class="levels">${[1,2,3,4].map(l=>`<button data-l="${l}" aria-pressed="${l===talkLevel}">${TALK_LABELS[l]}</button>`).join("")}</div>
+    <div class="talkcard"><div class="ic" aria-hidden="true">${card.ic}</div><div class="question">${esc(card.ask)}</div>
+      <p class="hint">Talk as much as you want. Tobi listens!</p><div class="said" id="said"></div></div>
+    <div class="controls">
+      <div class="side"><button class="btn y" id="hearBtn">👂 Hear it</button></div>
+      ${micHTML()}
+      <div class="side"><button class="btn g" id="saidBtn">✓ He told me</button><button class="btn p" id="nextBtn">Next ➜</button></div>
+    </div><div class="heard" id="heard"></div>`;
+  board.querySelectorAll(".levels button").forEach(b=>b.onclick=()=>{ talkLevel=+b.dataset.l; save("tt.talkLevel",talkLevel); talkTime(true); });
+  const win=async()=>{ if(done) return; done=true; addStar(2);
+    const echo=heard.slice(-12).join(" ");
+    await say(echo?`Wow! You said: ${echo}. Thank you for telling me!`:`Thank you for telling me! Great talking!`, `Wow! Thank you for telling me! 🌟`);
+    timer=setTimeout(()=>talkTime(true),1500); };
+  wireMic(r=>{ showHeard(r); if(done||!r.isFinal) return;
+      heard.push(...r.alts[0]); $("#said").textContent = heard.join(" ");
+      if(heard.length>=4) win(); else say(pick(["Tell me more!","Ooh! What else?","Keep going!"])); },
+    ()=>{ if(!done) bubble("I hear you! Keep talking! 🌟"); });
+  $("#hearBtn").onclick=()=>say(card.ask,false);
+  $("#saidBtn").onclick=win; $("#nextBtn").onclick=()=>talkTime(true);
+  say(card.ask, `${esc(card.ask)}${wantListen?"":" Tap 🎤 and tell me!"}`);
 }
 
 /* ================= grown-up settings ================= */
